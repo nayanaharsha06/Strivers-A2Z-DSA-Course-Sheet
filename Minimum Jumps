@@ -54,6 +54,6 @@ class Solution {
         }
         }
         
-        return totaljumps;
+        return -1;
     }
 }
