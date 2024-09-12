@@ -1,0 +1,77 @@
+//{ Driver Code Starts
+// Initial Template for Java
+
+import java.util.*;
+import java.lang.*;
+import java.math.*;
+import java.io.*;
+
+class GFG {
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        int T = sc.nextInt();
+        while (T-- > 0) {
+            int n = sc.nextInt();
+            Solution obj = new Solution();
+            obj.sieve();
+            List<Integer> ans = obj.findPrimeFactors(n);
+            for (int e : ans) {
+                System.out.print(e + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+// } Driver Code Ends
+
+
+// User function Template for Java
+
+class Solution {
+    private static List<Integer> primes;
+
+    // Implement the sieve of Eratosthenes
+    static void sieve() {
+        int max = 100000; // Adjust this based on the problem constraints
+        boolean[] isPrime = new boolean[max + 1];
+        primes = new ArrayList<>();
+        Arrays.fill(isPrime, true);
+        isPrime[0] = isPrime[1] = false;
+
+        for (int i = 2; i * i <= max; i++) {
+            if (isPrime[i]) {
+                for (int j = i * i; j <= max; j += i) {
+                    isPrime[j] = false;
+                }
+            }
+        }
+
+        for (int i = 2; i <= max; i++) {
+            if (isPrime[i]) {
+                primes.add(i);
+            }
+        }
+    }
+
+    // Find the prime factors of N
+    static List<Integer> findPrimeFactors(int N) {
+        List<Integer> arr = new ArrayList<>();
+        if (N <= 1) return arr;
+
+        // Use precomputed primes to find factors
+        for (int prime : primes) {
+            if (prime * prime > N) break; // No need to check beyond sqrt(N)
+            if (N % prime == 0) {
+                while (N % prime == 0) {
+                    arr.add(prime);
+                    N /= prime;
+                }
+            }
+        }
+        if (N > 1) { // N is a prime number greater than sqrt(original N)
+            arr.add(N);
+        }
+        return arr;
+    }
+}
