@@ -1,0 +1,19 @@
+
+class Solution{
+    public List<Integer> pattern(int N){
+        // code here
+        List<Integer> result = new ArrayList<>();
+        generatepattern(N,result);
+        return result;
+    }
+    
+    public void generatepattern(int N,List<Integer> result){
+        result.add(N);
+        if(N<=0){
+            return;
+        }
+
+        generatepattern(N-5,result);
+        result.add(N);
+    }
+}
