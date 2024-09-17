@@ -1,0 +1,50 @@
+//{ Driver Code Starts
+import java.io.*;
+import java.util.*;
+
+class Main {
+    // Driver code
+    public static void main(String[] args) throws Exception {
+        BufferedReader br =
+            new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine().trim());
+        while (t-- > 0) {
+            int n = Integer.parseInt(br.readLine().trim());
+            Solution obj = new Solution();
+            int ans[] = obj.Series(n);
+            for (int i : ans) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+// } Driver Code Ends
+
+
+class Solution {
+    static final int MOD = 1000000007;  
+
+    int[] Series(int n) {
+        int[] arr = new int[n + 1]; 
+        fillFibonacci(arr, n);  
+        return arr;
+    }
+    
+    int fillFibonacci(int[] arr, int n) {
+        if (n == 0) {
+            arr[0] = 0;  // Base case: Fibonacci(0) = 0
+            return 0;
+        }
+        if (n == 1) {
+            arr[1] = 1;  // Base case: Fibonacci(1) = 1
+            return 1;
+        }
+
+        
+        if (arr[n] != 0) return arr[n];// If already calculated, return the value to avoid recomputation
+
+        arr[n] = (fillFibonacci(arr, n - 1) + fillFibonacci(arr, n - 2)) % MOD;
+        return arr[n];  // Return the nth Fibonacci number
+    }
+}
