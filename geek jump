@@ -1,0 +1,48 @@
+//{ Driver Code Starts
+//Initial Template for Java
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG{
+    public static void main(String args[]) throws IOException{
+        Scanner sc=new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int N=sc.nextInt();
+            int []arr=new int[N];
+            for(int i=0;i<N;i++){
+                arr[i]=sc.nextInt();
+                
+            }
+            Solution obj=new Solution();
+            int res=obj.minimumEnergy(arr,N);
+            System.out.println(res);
+            
+        }
+    }
+}
+
+
+// } Driver Code Ends
+
+
+//User function Template for Java
+
+class Solution{
+    public int minimumEnergy(int arr[],int N){
+        int []dp=new int[N]; // create an array to store the minimum energy required
+        Arrays.fill(dp,-1); // initialize all elements as -1 as a flag for not calculated yet
+        dp[0]=0; // set the energy required for the first jump as 0
+        for(int i=1;i<N;i++){ // loop through each index starting from the second one
+            int jumpTwo=Integer.MAX_VALUE; // initialize the energy required for a jump of 2 as maximum value
+            int jumpOne=dp[i-1]+Math.abs(arr[i]-arr[i-1]); // calculate the energy required for a jump of 1
+            if(i>1){
+                jumpTwo=dp[i-2]+Math.abs(arr[i]-arr[i-2]); // calculate the energy required for a jump of 2 if there are at least 2 elements before
+            }
+            dp[i]=Math.min(jumpOne,jumpTwo); // choose the minimum energy required between the jump of 1 and jump of 2
+        }
+        return dp[N-1]; //
+    }
+}
