@@ -1,0 +1,53 @@
+//{ Driver Code Starts
+// Initial Template for Java
+
+import java.io.*;
+import java.lang.*;
+import java.util.*;
+
+class GFG {
+    public static void main(String args[]) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int N = sc.nextInt();
+            int[][] arr = new int[N][3];
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < 3; j++) {
+                    arr[i][j] = sc.nextInt();
+                }
+            }
+            Solution obj = new Solution();
+            int res = obj.maximumPoints(arr, N);
+            System.out.println(res);
+        
+System.out.println("~");
+}
+    }
+}
+// } Driver Code Ends
+
+
+// User function Template for Java
+
+class Solution {
+    public int maximumPoints(int arr[][], int N) {
+        int prevRun = arr[0][0];
+        int prevFight = arr[0][1];
+        int prevLearn = arr[0][2];
+         // Iterate over each day from day 1 to day n-1
+        for (int i = 1; i < N; i++) {
+            // Calculate the current day's points for each activity
+            int currRun = arr[i][0] + Math.max(prevFight, prevLearn);
+            int currFight = arr[i][1] + Math.max(prevRun, prevLearn);
+            int currLearn = arr[i][2] + Math.max(prevRun, prevFight);
+            // Update the previous day's points for the next iteration
+            prevRun = currRun;
+            prevFight = currFight;
+            prevLearn = currLearn;
+        }
+        
+        // The answer is the maximum points among the three activities on the last day
+        return Math.max(prevRun, Math.max(prevFight, prevLearn));
+    }
+}
